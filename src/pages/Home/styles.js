@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 export const Container = styled.main`
-  padding: 80px 0;
+  padding-top: 80px;
+  padding-bottom: 80px;
 
   h4 {
     font-size: 1.2rem;
@@ -21,7 +22,7 @@ export const Container = styled.main`
 
   > section {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fill, minMax(260px, 1fr));
     gap: 22px;
     margin-top: 24px;
   }

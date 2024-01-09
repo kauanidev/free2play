@@ -1,48 +1,74 @@
-import { Rating } from "../../components/Rating";
+import axios from "axios";
 import { About, Banner, Container, GameInfos, Screenshots } from "./styles";
+import { Link, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { LuArrowLeftFromLine } from "react-icons/lu";
 
 export const Details = () => {
+  const [gameDetails, setGameDetails] = useState({});
+
+  const params = useParams();
+
+  const getGameDetails = async () => {
+    const { data } = await axios.get(
+      `https://www.freetogame.com/api/game?id=${params.id}`
+    );
+    setGameDetails(data);
+  };
+
+  useEffect(() => {
+    getGameDetails();
+  }, []);
+
   const infos = [
     {
       title: "Publisher",
-      value: "Riot Games",
+      value: gameDetails.publisher,
     },
     {
       title: "Developer",
-      value: "Riot Games",
+      value: gameDetails.developer,
     },
     {
       title: "Release Date",
-      value: "2018-04-13",
+      value: gameDetails.release_date,
     },
     {
       title: "Genre",
-      value: "FPS",
+      value: gameDetails.genre,
     },
   ];
+
+  if (!gameDetails.title) return null;
+
   return (
     <Container className="container">
-      <Banner>
+      <Banner bannerUrl={gameDetails.thumbnail}>
         <div>
           <span>Free2Play</span>
-          <h1>Valorant</h1>
+          <h1>
+            <Link to="/">
+              <LuArrowLeftFromLine />
+            </Link>
+            {gameDetails.title}
+          </h1>
         </div>
       </Banner>
       <About>
         <Screenshots>
-          <img src="/img/valorant.webp" alt="Game Banner" />
-          <img src="/img/valorant.webp" alt="Game Banner" />
+          {gameDetails?.screenshots?.slice(0, 2)?.map((screenshot) => {
+            return (
+              <img
+                src={screenshot.image}
+                alt="Game Banner"
+                key={screenshot.id}
+              />
+            );
+          })}
         </Screenshots>
         <GameInfos>
-          <h2>About the game</h2>
-          <p>
-            Valorant is an online multiplayer computer game, produced by Riot
-            Games. It is a first-person shooter game, consisting of two teams of
-            five, where one team attacks and the other defends. Players control
-            characters known as agents, who all have different abilities to use
-            during gameplay.
-          </p>
-          <Rating />
+          <h2>About {gameDetails.title}</h2>
+          <p>{gameDetails.description}</p>
           <section>
             {infos.map((info) => {
               return (
@@ -53,7 +79,9 @@ export const Details = () => {
               );
             })}
           </section>
-          <button>Play now</button>
+          <a href={gameDetails.game_url} target="_blank" rel="noreferrer">
+            Play now
+          </a>
         </GameInfos>
       </About>
     </Container>

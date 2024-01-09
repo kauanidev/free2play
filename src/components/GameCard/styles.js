@@ -15,12 +15,11 @@ export const Container = styled(Link)`
   text-decoration: none;
   color: ${({ theme }) => theme.gray50};
 
-  > div {
+  > img {
     width: 100%;
     height: 400px;
-    background: url(/img/valorant.webp) no-repeat center/cover;
     border-radius: 8px;
-    padding: 10px;
+    object-fit: cover;
   }
 
   h2 {

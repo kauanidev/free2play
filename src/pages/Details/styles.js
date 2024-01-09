@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 export const Container = styled.main`
-  padding: 80px 0;
+  padding-top: 80px;
+  padding-bottom: 80px;
 `;
 
 export const Banner = styled.div`
@@ -13,7 +14,7 @@ export const Banner = styled.div`
       rgba(54, 44, 146, 0.4) 0%,
       rgba(18, 98, 151, 0.4) 100%
     ),
-    url(/img/valorant.webp) no-repeat center/cover;
+    url(${({ bannerUrl }) => bannerUrl}) no-repeat center/cover;
   display: flex;
   align-items: flex-end;
   margin-bottom: 155px;
@@ -37,6 +38,22 @@ export const Banner = styled.div`
     > h1 {
       font-size: 3.2rem;
       font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      svg {
+        color: ${({ theme }) => theme.primary200};
+        margin-top: 13px;
+      }
+    }
+  }
+
+  @media (max-width: 1000px) {
+    margin-bottom: 120px;
+
+    > div {
+      margin-left: 30px;
     }
   }
 `;
@@ -46,6 +63,12 @@ export const About = styled.section`
   grid-template-columns: repeat(2, 1fr);
   gap: 72px;
   padding: 0 72px;
+
+  @media (max-width: 1000px) {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 0;
+  }
 `;
 
 export const Screenshots = styled.div`
@@ -94,7 +117,7 @@ export const GameInfos = styled.div`
     }
   }
 
-  button {
+  a {
     background: ${({ theme }) => theme.primary500};
     color: ${({ theme }) => theme.white};
     border: none;
@@ -103,6 +126,8 @@ export const GameInfos = styled.div`
     margin-top: 50px;
     cursor: pointer;
     transition: 0.4s;
+    text-align: center;
+    text-decoration: none;
 
     &:hover {
       filter: brightness(0.8);

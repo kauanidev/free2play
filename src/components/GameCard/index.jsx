@@ -1,13 +1,10 @@
-import { Rating } from "../Rating";
 import { Container } from "./styles";
 
-export const GameCard = () => {
+export const GameCard = ({ game }) => {
   return (
-    <Container to="/details/valorant">
-      <div>
-        <Rating />
-      </div>
-      <h2>Valorant</h2>
+    <Container to={`/details/${game.id}`}>
+      <img src={game.thumbnail} alt="foto do jogo" />
+      <h2>{game.title}</h2>
     </Container>
   );
 };

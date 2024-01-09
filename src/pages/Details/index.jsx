@@ -11,7 +11,14 @@ export const Details = () => {
 
   const getGameDetails = async () => {
     const { data } = await axios.get(
-      `https://www.freetogame.com/api/game?id=${params.id}`
+      `https://free-to-play-games-database.p.rapidapi.com/api/game?id=${params.id}`,
+      {
+        headers: {
+          "X-RapidAPI-Key":
+            "fcb4bbd2e9mshd5f84144a0d4780p16c436jsnf372f56e0d68",
+          "X-RapidAPI-Host": "free-to-play-games-database.p.rapidapi.com",
+        },
+      }
     );
     setGameDetails(data);
   };

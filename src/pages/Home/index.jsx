@@ -8,7 +8,14 @@ export const Home = () => {
 
   const getPopularGames = async () => {
     const { data } = await axios.get(
-      "https://www.freetogame.com/api/games?sort-by=popularity"
+      "https://free-to-play-games-database.p.rapidapi.com/api/games?sort-by=popularity",
+      {
+        headers: {
+          "X-RapidAPI-Key":
+            "fcb4bbd2e9mshd5f84144a0d4780p16c436jsnf372f56e0d68",
+          "X-RapidAPI-Host": "free-to-play-games-database.p.rapidapi.com",
+        },
+      }
     );
     setPopularGames(data.slice(0, 40));
   };
